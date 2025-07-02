@@ -7,7 +7,7 @@
     Title="KakeiboApp">
 
     <ShellContent
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate local:TransactionPage}"
+        Route="TransactionPage" />
 
 </Shell>
