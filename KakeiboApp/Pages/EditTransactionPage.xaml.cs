@@ -1,3 +1,5 @@
+using KakeiboApp.ViewModels;
+
 namespace KakeiboApp.Pages;
 
 [QueryProperty(nameof(TransactionId), "TransactionId")]

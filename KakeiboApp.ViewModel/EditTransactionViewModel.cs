@@ -4,6 +4,8 @@ using CommunityToolkit.Mvvm.Input;
 using KakeiboApp.Core.Models;
 using KakeiboApp.Core.Interfaces;
 
+namespace KakeiboApp.ViewModels;
+
 public partial class EditTransactionViewModel : ObservableObject
 {
     private readonly ITransactionRepository _repository;

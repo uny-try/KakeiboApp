@@ -3,7 +3,7 @@ using Microsoft.Maui.Controls;
 
 using KakeiboApp.Core.Interfaces;
 
-namespace KakeiboApp.Core.Services;
+namespace KakeiboApp.Services;
 
 public class NavigationService : INavigationService
 {
