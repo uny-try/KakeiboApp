@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using KakeiboApp.Core.Models;
 using KakeiboApp.Core.Interfaces;
 
-public partial class TransactionEditViewModel : ObservableObject
+public partial class EditTransactionViewModel : ObservableObject
 {
     private readonly ITransactionRepository _repository;
     private readonly INavigationService _navigation;
@@ -18,7 +18,7 @@ public partial class TransactionEditViewModel : ObservableObject
     [ObservableProperty] private Account? fromAccount;
     [ObservableProperty] private Account? toAccount;
 
-    public TransactionEditViewModel(
+    public EditTransactionViewModel(
         ITransactionRepository repository,
         INavigationService navigation)
     {

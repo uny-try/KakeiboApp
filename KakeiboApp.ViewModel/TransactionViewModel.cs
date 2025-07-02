@@ -9,13 +9,15 @@ using KakeiboApp.Core.Interfaces;
 public partial class TransactionViewModel : ObservableObject
 {
     private readonly ITransactionRepository _repository;
+    private readonly INavigationService _navigationService;
 
     [ObservableProperty]
     private ObservableCollection<Transaction> transactions;
 
-    public TransactionViewModel(ITransactionRepository repository)
+    public TransactionViewModel(ITransactionRepository repository, INavigationService navigationService)
     {
         _repository = repository;
+        _navigationService = navigationService;
         transactions = new();
     }
 
@@ -24,5 +26,16 @@ public partial class TransactionViewModel : ObservableObject
     {
         var data = await _repository.GetAllAsync();
         Transactions = new ObservableCollection<Transaction>(data);
+    }
+
+    [RelayCommand]
+    public async Task GoToEditAsync(Guid? transactionId = null)
+    {
+        var parameters = new Dictionary<string, object>();
+        if (transactionId.HasValue)
+        {
+            parameters.Add("TransactionId", transactionId.Value);
+        }
+        await _navigationService.NavigateToAsync("editTransactionPage", parameters);
     }
 }
