@@ -1,4 +1,4 @@
-﻿namespace KakeiboApp;
+﻿namespace KakeiboApp.Pages;
 
 public partial class MainPage : ContentPage
 {
