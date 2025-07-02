@@ -8,6 +8,11 @@
 
     <ShellContent
         ContentTemplate="{DataTemplate local:TransactionPage}"
-        Route="TransactionPage" />
+        Route="TransactionPage"
+        Title="TransactionPage" />
+    <ShellContent
+        ContentTemplate="{DataTemplate local:EditTransactionPage}"
+        Route="EditTransactionPage"
+        Title="EditTransactionPage" />
 
 </Shell>
