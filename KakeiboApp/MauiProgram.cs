@@ -22,7 +22,9 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<TransactionViewModel>();
 		builder.Services.AddSingleton<EditTransactionViewModel>();
-		builder.Services.AddSingleton<ITransactionRepository, TransactionRepository>();
+		builder.Services.AddSingleton<ITransactionRepository, InMemoryTransactionRepository>();
+		builder.Services.AddSingleton<ICategoryRepository, InMemoryCategoryRepository>();
+		builder.Services.AddSingleton<IAccountRepository, InMemoryAccountRepository>();
 		builder.Services.AddSingleton<INavigationService, NavigationService>();
 
 #if DEBUG

@@ -9,6 +9,8 @@ namespace KakeiboApp.ViewModels;
 public partial class EditTransactionViewModel : ObservableObject
 {
     private readonly ITransactionRepository _repository;
+    private readonly ICategoryRepository _categoryRepository;
+    private readonly IAccountRepository _accountRepository;
     private readonly INavigationService _navigation;
 
     [ObservableProperty] private Guid? transactionId;
@@ -20,12 +22,22 @@ public partial class EditTransactionViewModel : ObservableObject
     [ObservableProperty] private Account? fromAccount;
     [ObservableProperty] private Account? toAccount;
 
+    [ObservableProperty] private IEnumerable<Category> categories;
+    [ObservableProperty] private IEnumerable<Account> accounts;
+
     public EditTransactionViewModel(
         ITransactionRepository repository,
+        ICategoryRepository categoryRepository,
+        IAccountRepository accountRepository,
         INavigationService navigation)
     {
         _repository = repository;
+        _categoryRepository = categoryRepository;
+        _accountRepository = accountRepository;
         _navigation = navigation;
+
+        categories = new List<Category>();
+        accounts = new List<Account>();
     }
 
     public async Task LoadAsync(Guid? id = null)
@@ -45,6 +57,19 @@ public partial class EditTransactionViewModel : ObservableObject
         SelectedCategory = tx.Category;
         FromAccount = tx.FromAccount;
         ToAccount = tx.ToAccount;
+    }
+
+    public async Task LoadSelectionListsAsync()
+    {
+        Categories = await _categoryRepository.GetAllAsync();
+        Accounts = await _accountRepository.GetAllAsync();
+
+        // Set default accounts if not already set
+        if (FromAccount is null && Accounts.Any())
+            FromAccount = Accounts.First();
+
+        if (ToAccount is null && Accounts.Any())
+            ToAccount = Accounts.First();
     }
 
     [RelayCommand]

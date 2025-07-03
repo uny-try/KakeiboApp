@@ -18,6 +18,7 @@ public partial class EditTransactionPage : ContentPage
 	protected override async void OnNavigatedTo(NavigatedToEventArgs args)
 	{
 		base.OnNavigatedTo(args);
+		await _viewModel.LoadSelectionListsAsync();
 		if (TransactionId is not null)
 		{
 			await _viewModel.LoadAsync(TransactionId);
