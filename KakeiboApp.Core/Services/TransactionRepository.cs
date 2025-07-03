@@ -5,7 +5,6 @@ namespace KakeiboApp.Core.Services;
 
 public class TransactionRepository : ITransactionRepository
 {
-
     public Task<IEnumerable<Transaction>> GetAllAsync()
     {
         throw new NotImplementedException();
