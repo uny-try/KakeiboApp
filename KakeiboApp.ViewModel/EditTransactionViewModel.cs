@@ -36,8 +36,8 @@ public partial class EditTransactionViewModel : ObservableObject
         _accountRepository = accountRepository;
         _navigation = navigation;
 
-        Categories = new ();
-        Accounts = new ();
+        Categories = new();
+        Accounts = new();
     }
 
     public async Task LoadAsync(Guid? id = null)
@@ -85,6 +85,12 @@ public partial class EditTransactionViewModel : ObservableObject
         else
             await _repository.UpdateAsync(model);
 
+        await _navigation.GoBackAsync();
+    }
+    
+    [RelayCommand]
+    public async Task GoBackAsync()
+    {
         await _navigation.GoBackAsync();
     }
 }

@@ -2,11 +2,30 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="KakeiboApp.Pages.TransactionPage"
+             xmlns:viewModel="clr-namespace:KakeiboApp.ViewModels;assembly=KakeiboApp.ViewModel"
+             xmlns:model="clr-namespace:KakeiboApp.Core.Models;assembly=KakeiboApp.Core"
              Title="TransactionPage">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="Transaction Page"
+               FontSize="32"
+               HorizontalOptions="Center" />
+
+        <ListView ItemsSource="{Binding Transactions}" x:DataType="viewModel:TransactionViewModel">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:Transaction">
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical" Padding="10">
+                            <Label Text="{Binding Date}" />
+                            <Label Text="{Binding Amount, StringFormat='金額: {0:C}'}" />
+                            <Label Text="{Binding Category.Name}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Text="Add Transaction"
+                Command="{Binding GoToEditCommand}"
+                HorizontalOptions="Center"
+                x:DataType="viewModel:TransactionViewModel" />
     </VerticalStackLayout>
 </ContentPage>

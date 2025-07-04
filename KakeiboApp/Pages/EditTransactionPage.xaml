@@ -2,11 +2,17 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="KakeiboApp.Pages.EditTransactionPage"
+             xmlns:viewModel="clr-namespace:KakeiboApp.ViewModels;assembly=KakeiboApp.ViewModel"
              Title="EditTransactionPage">
     <VerticalStackLayout>
-        <Label 
+        <Label
             Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            VerticalOptions="Center"
+            HorizontalOptions="Center"/>
+        <Button
+            Text="Go Back"
+            Command="{Binding GoBackCommand}"
+            HorizontalOptions="Center"
+            x:DataType="viewModel:EditTransactionViewModel"/>
     </VerticalStackLayout>
 </ContentPage>
