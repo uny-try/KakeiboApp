@@ -38,6 +38,6 @@ public partial class TransactionViewModel : ObservableObject
         {
             parameters.Add("TransactionId", transactionId.Value);
         }
-        await _navigationService.NavigateToAsync("editTransactionPage", parameters);
+        await _navigationService.NavigateToAsync("EditTransactionPage", parameters);
     }
 }

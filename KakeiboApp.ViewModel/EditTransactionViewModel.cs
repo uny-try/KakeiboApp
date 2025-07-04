@@ -22,8 +22,8 @@ public partial class EditTransactionViewModel : ObservableObject
     [ObservableProperty] private Account? fromAccount;
     [ObservableProperty] private Account? toAccount;
 
-    [ObservableProperty] private IEnumerable<Category> categories;
-    [ObservableProperty] private IEnumerable<Account> accounts;
+    [ObservableProperty] private List<Category> categories;
+    [ObservableProperty] private List<Account> accounts;
 
     public EditTransactionViewModel(
         ITransactionRepository repository,
@@ -36,8 +36,8 @@ public partial class EditTransactionViewModel : ObservableObject
         _accountRepository = accountRepository;
         _navigation = navigation;
 
-        categories = new List<Category>();
-        accounts = new List<Account>();
+        Categories = new ();
+        Accounts = new ();
     }
 
     public async Task LoadAsync(Guid? id = null)
@@ -61,15 +61,8 @@ public partial class EditTransactionViewModel : ObservableObject
 
     public async Task LoadSelectionListsAsync()
     {
-        Categories = await _categoryRepository.GetAllAsync();
-        Accounts = await _accountRepository.GetAllAsync();
-
-        // Set default accounts if not already set
-        if (FromAccount is null && Accounts.Any())
-            FromAccount = Accounts.First();
-
-        if (ToAccount is null && Accounts.Any())
-            ToAccount = Accounts.First();
+        Categories = (await _categoryRepository.GetAllAsync()).ToList();
+        Accounts = (await _accountRepository.GetAllAsync()).ToList();
     }
 
     [RelayCommand]
