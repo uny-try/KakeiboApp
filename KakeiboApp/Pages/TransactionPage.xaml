@@ -7,8 +7,8 @@
              Title="TransactionPage"
              x:DataType="viewModel:TransactionViewModel">
     <VerticalStackLayout>
-        <Label Text="Transaction Page"
-               FontSize="32"
+        <Label Text="家計簿"
+               FontSize="24"
                HorizontalOptions="Center" />
 
         <ListView ItemsSource="{Binding Transactions}">
