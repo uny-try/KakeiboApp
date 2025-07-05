@@ -4,13 +4,14 @@
              x:Class="KakeiboApp.Pages.TransactionPage"
              xmlns:viewModel="clr-namespace:KakeiboApp.ViewModels;assembly=KakeiboApp.ViewModel"
              xmlns:model="clr-namespace:KakeiboApp.Core.Models;assembly=KakeiboApp.Core"
-             Title="TransactionPage">
+             Title="TransactionPage"
+             x:DataType="viewModel:TransactionViewModel">
     <VerticalStackLayout>
         <Label Text="Transaction Page"
                FontSize="32"
                HorizontalOptions="Center" />
 
-        <ListView ItemsSource="{Binding Transactions}" x:DataType="viewModel:TransactionViewModel">
+        <ListView ItemsSource="{Binding Transactions}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Transaction">
                     <ViewCell>
