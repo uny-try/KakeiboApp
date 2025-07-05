@@ -26,7 +26,6 @@
         </ListView>
         <Button Text="Add Transaction"
                 Command="{Binding GoToEditCommand}"
-                HorizontalOptions="Center"
-                x:DataType="viewModel:TransactionViewModel" />
+                HorizontalOptions="Center"/>
     </VerticalStackLayout>
 </ContentPage>

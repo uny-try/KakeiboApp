@@ -1,18 +1,46 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Class="KakeiboApp.Pages.EditTransactionPage"
              xmlns:viewModel="clr-namespace:KakeiboApp.ViewModels;assembly=KakeiboApp.ViewModel"
-             Title="EditTransactionPage">
+             Title="EditTransactionPage"
+             x:DataType="viewModel:EditTransactionViewModel">
     <VerticalStackLayout>
-        <Label
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"/>
-        <Button
-            Text="Go Back"
-            Command="{Binding GoBackCommand}"
-            HorizontalOptions="Center"
-            x:DataType="viewModel:EditTransactionViewModel"/>
+        <Label Text="取引の編集"
+               FontSize="24"
+               HorizontalOptions="Center"/>
+        <DatePicker
+            Date="{Binding Date}"
+            Format="yyyy/MM/dd"
+            Margin="10,0"/>
+        <Picker
+            Title="カテゴリを選択"
+            ItemsSource="{Binding Categories}"
+            SelectedItem="{Binding SelectedCategory}"
+            ItemDisplayBinding="{Binding Name}"
+            Margin="10,0"/>
+        <Picker
+            Title="タイプを選択"
+            ItemsSource="{Binding TransactionTypes}"
+            SelectedItem="{Binding Type}"
+            Margin="10,0"/>
+        <Entry
+            Placeholder="金額を入力"
+            Text="{Binding Amount}"
+            Keyboard="Numeric"
+            Margin="10,0"/>
+        
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Button
+                Text="保存"
+                Command="{Binding SaveCommand}"
+                Margin="0,0,10,0"
+                WidthRequest="120"/>
+            <Button
+                Text="キャンセル"
+                Command="{Binding CancelCommand}"
+                WidthRequest="120"/>
+            </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

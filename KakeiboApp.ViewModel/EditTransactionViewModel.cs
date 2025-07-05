@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 
 using KakeiboApp.Core.Models;
 using KakeiboApp.Core.Interfaces;
+using System.Collections.ObjectModel;
 
 namespace KakeiboApp.ViewModels;
 
@@ -13,10 +14,10 @@ public partial class EditTransactionViewModel : ObservableObject
     private readonly IAccountRepository _accountRepository;
     private readonly INavigationService _navigation;
 
-    [ObservableProperty] private Guid? transactionId;
+    [ObservableProperty] private Guid? transactionId = null;
     [ObservableProperty] private decimal amount;
     [ObservableProperty] private string? note;
-    [ObservableProperty] private DateTime date = DateTime.Today;
+    [ObservableProperty] private DateTime date = DateTime.Now;
     [ObservableProperty] private TransactionType type;
     [ObservableProperty] private Category? selectedCategory;
     [ObservableProperty] private Account? fromAccount;
@@ -24,6 +25,9 @@ public partial class EditTransactionViewModel : ObservableObject
 
     [ObservableProperty] private List<Category> categories;
     [ObservableProperty] private List<Account> accounts;
+
+    public ObservableCollection<TransactionType> TransactionTypes { get; } =
+        new ObservableCollection<TransactionType>((TransactionType[])Enum.GetValues(typeof(TransactionType)));
 
     public EditTransactionViewModel(
         ITransactionRepository repository,
@@ -89,7 +93,7 @@ public partial class EditTransactionViewModel : ObservableObject
     }
     
     [RelayCommand]
-    public async Task GoBackAsync()
+    public async Task CancelAsync()
     {
         await _navigation.GoBackAsync();
     }
