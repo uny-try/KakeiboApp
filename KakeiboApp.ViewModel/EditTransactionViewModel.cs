@@ -15,16 +15,21 @@ public partial class EditTransactionViewModel : ObservableObject
     private readonly INavigationService _navigation;
 
     [ObservableProperty] private Guid? transactionId = null;
-    [ObservableProperty] private decimal amount;
-    [ObservableProperty] private string? note;
-    [ObservableProperty] private DateTime date = DateTime.Now;
     [ObservableProperty] private TransactionType type;
-    [ObservableProperty] private Category? selectedCategory;
+    [ObservableProperty] private DateTime date = DateTime.Now;
     [ObservableProperty] private Account? fromAccount;
     [ObservableProperty] private Account? toAccount;
+    [ObservableProperty] private Category? selectedCategory;
+    [ObservableProperty] private decimal amount;
+    [ObservableProperty] private string? note;
 
     [ObservableProperty] private List<Category> categories;
     [ObservableProperty] private List<Account> accounts;
+
+    // 取引タイプの表示用
+    [ObservableProperty] private bool isIncome;
+    [ObservableProperty] private bool isExpense = true;
+    [ObservableProperty] private bool isTransfer;
 
     public ObservableCollection<TransactionType> TransactionTypes { get; } =
         new ObservableCollection<TransactionType>((TransactionType[])Enum.GetValues(typeof(TransactionType)));
