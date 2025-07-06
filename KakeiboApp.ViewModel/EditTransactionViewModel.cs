@@ -23,16 +23,14 @@ public partial class EditTransactionViewModel : ObservableObject
     [ObservableProperty] private decimal amount;
     [ObservableProperty] private string? note;
 
+    // 選択肢のリスト
     [ObservableProperty] private List<Category> categories;
     [ObservableProperty] private List<Account> accounts;
 
-    // 取引タイプの表示用
-    [ObservableProperty] private bool isIncome;
-    [ObservableProperty] private bool isExpense = true;
-    [ObservableProperty] private bool isTransfer;
-
-    public ObservableCollection<TransactionType> TransactionTypes { get; } =
-        new ObservableCollection<TransactionType>((TransactionType[])Enum.GetValues(typeof(TransactionType)));
+    // 表示切替用
+    public bool IsExpense => Type == TransactionType.Expense;
+    public bool IsIncome => Type == TransactionType.Income;
+    public bool IsTransfer => Type == TransactionType.Transfer;
 
     public EditTransactionViewModel(
         ITransactionRepository repository,

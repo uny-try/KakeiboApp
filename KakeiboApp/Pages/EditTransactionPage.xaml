@@ -6,40 +6,40 @@
              Title="EditTransactionPage"
              x:DataType="viewModel:EditTransactionViewModel">
     <VerticalStackLayout>
-        <Label Text="取引の編集"
-               FontSize="24"
-               HorizontalOptions="Center"/>
-        <DatePicker
-            Date="{Binding Date}"
-            Format="yyyy/MM/dd"
-            Margin="10,0"/>
-        <Picker
-            Title="カテゴリを選択"
-            ItemsSource="{Binding Categories}"
-            SelectedItem="{Binding SelectedCategory}"
-            ItemDisplayBinding="{Binding Name}"
-            Margin="10,0"/>
-        <Picker
-            Title="タイプを選択"
-            ItemsSource="{Binding TransactionTypes}"
-            SelectedItem="{Binding Type}"
-            Margin="10,0"/>
-        <Entry
-            Placeholder="金額を入力"
-            Text="{Binding Amount}"
-            Keyboard="Numeric"
-            Margin="10,0"/>
-        
-        <HorizontalStackLayout HorizontalOptions="Center">
-            <Button
-                Text="保存"
-                Command="{Binding SaveCommand}"
-                Margin="0,0,10,0"
-                WidthRequest="120"/>
-            <Button
-                Text="キャンセル"
-                Command="{Binding CancelCommand}"
-                WidthRequest="120"/>
-            </HorizontalStackLayout>
+        <!-- ラジオボタン群 -->
+        <HorizontalStackLayout>
+            <RadioButton Content="支出"
+                         IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Expense}"/>
+            <RadioButton Content="収入"
+                         IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Income}"/>
+            <RadioButton Content="振替"
+                         IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Transfer}"/>
+        </HorizontalStackLayout>
+
+        <!-- 支出用フィールド -->
+        <StackLayout IsVisible="{Binding IsExpense}">
+            <Picker ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding SelectedCategory}"/>
+            <Picker ItemsSource="{Binding Accounts}"
+                    SelectedItem="{Binding FromAccount}"/>
+        </StackLayout>
+
+        <!-- 収入用フィールド -->
+        <StackLayout IsVisible="{Binding IsIncome}">
+            <Picker ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding SelectedCategory}"/>
+            <Picker ItemsSource="{Binding Accounts}"
+                    SelectedItem="{Binding ToAccount}"/>
+        </StackLayout>
+
+        <!-- 振替用フィールド -->
+        <StackLayout IsVisible="{Binding IsTransfer}">
+            <Picker Title="出金口座"
+                    ItemsSource="{Binding Accounts}"
+                    SelectedItem="{Binding FromAccount}"/>
+            <Picker Title="入金口座"
+                    ItemsSource="{Binding Accounts}"
+                    SelectedItem="{Binding ToAccount}"/>
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>
