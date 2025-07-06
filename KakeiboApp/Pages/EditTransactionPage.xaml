@@ -9,11 +9,14 @@
         <!-- ラジオボタン群 -->
         <HorizontalStackLayout>
             <RadioButton Content="支出"
-                         IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Expense}"/>
+                         IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Expense}"
+                         Margin="10, 0"/>
             <RadioButton Content="収入"
-                         IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Income}"/>
+                         IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Income}"
+                         Margin="10, 0"/>
             <RadioButton Content="振替"
-                         IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Transfer}"/>
+                         IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Transfer}"
+                         Margin="10, 0"/>
         </HorizontalStackLayout>
 
         <!-- 支出用フィールド -->
