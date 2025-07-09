@@ -2,47 +2,131 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="KakeiboApp.Pages.EditTransactionPage"
+             xmlns:model="clr-namespace:KakeiboApp.Core.Models;assembly=KakeiboApp.Core"
              xmlns:viewModel="clr-namespace:KakeiboApp.ViewModels;assembly=KakeiboApp.ViewModel"
+             xmlns:behaviors="clr-namespace:KakeiboApp.Behaviors;assembly=KakeiboApp"
              Title="EditTransactionPage"
              x:DataType="viewModel:EditTransactionViewModel">
     <VerticalStackLayout>
         <!-- ラジオボタン群 -->
         <HorizontalStackLayout>
-            <RadioButton Content="支出"
-                         IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Expense}"
-                         Margin="10, 0"/>
             <RadioButton Content="収入"
+                         GroupName="TypeGroup"
                          IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Income}"
                          Margin="10, 0"/>
+            <RadioButton Content="支出"
+                         GroupName="TypeGroup"
+                         IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Expense}"
+                         Margin="10, 0"/>
             <RadioButton Content="振替"
+                         GroupName="TypeGroup"
                          IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Transfer}"
                          Margin="10, 0"/>
         </HorizontalStackLayout>
 
-        <!-- 支出用フィールド -->
-        <StackLayout IsVisible="{Binding IsExpense}">
-            <Picker ItemsSource="{Binding Categories}"
-                    SelectedItem="{Binding SelectedCategory}"/>
-            <Picker ItemsSource="{Binding Accounts}"
-                    SelectedItem="{Binding FromAccount}"/>
+        <!-- 日付フィールド -->
+        <DatePicker Date="{Binding Date}"
+                    Format="d"/>
+
+        <!-- 金額用フィールド -->
+        <StackLayout>
+
+            <!-- 表示モード -->
+            <Label
+                Text="{Binding Amount, Converter={StaticResource AmountToCurrencyConverter}}"
+                IsVisible="{Binding IsEditingAmount, Converter={StaticResource InverseBoolConverter}}"
+                FontSize="24"
+                TextColor="Black">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding StartEditingAmountCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <!-- 編集モード -->
+            <Entry
+                Text="{Binding Amount, Mode=TwoWay}"
+                Keyboard="Numeric"
+                FontSize="24"
+                IsVisible="{Binding IsEditingAmount}"
+                ReturnCommand="{Binding FinishEditingAmountCommand}">
+                <Entry.Behaviors>
+                    <behaviors:FocusOnVisibleBehavior/>
+                </Entry.Behaviors>
+            </Entry>
+
         </StackLayout>
 
         <!-- 収入用フィールド -->
         <StackLayout IsVisible="{Binding IsIncome}">
-            <Picker ItemsSource="{Binding Categories}"
-                    SelectedItem="{Binding SelectedCategory}"/>
-            <Picker ItemsSource="{Binding Accounts}"
-                    SelectedItem="{Binding ToAccount}"/>
+            <Picker Title="入金"
+                    ItemsSource="{Binding Accounts}"
+                    SelectedItem="{Binding ToAccount}">
+                <Picker.ItemDisplayBinding>
+                    <Binding Path="Name"
+                             x:DataType="model:Account"/>
+                </Picker.ItemDisplayBinding>
+            </Picker>
+            <Picker Title="分類"
+                    ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding SelectedCategory}">
+                <Picker.ItemDisplayBinding>
+                    <Binding Path="Name"
+                             x:DataType="model:Category"/>
+                </Picker.ItemDisplayBinding>
+            </Picker>
+        </StackLayout>
+
+        <!-- 支出用フィールド -->
+        <StackLayout IsVisible="{Binding IsExpense}">
+            <Picker Title="出金"
+                    ItemsSource="{Binding Accounts}"
+                    SelectedItem="{Binding FromAccount}">
+                <Picker.ItemDisplayBinding>
+                    <Binding Path="Name"
+                             x:DataType="model:Account"/>
+                </Picker.ItemDisplayBinding>
+            </Picker>
+            <Picker Title="分類"
+                    ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding SelectedCategory}">
+                <Picker.ItemDisplayBinding>
+                    <Binding Path="Name"
+                             x:DataType="model:Category"/>
+                </Picker.ItemDisplayBinding>
+            </Picker>
         </StackLayout>
 
         <!-- 振替用フィールド -->
         <StackLayout IsVisible="{Binding IsTransfer}">
-            <Picker Title="出金口座"
+            <Picker Title="出金"
                     ItemsSource="{Binding Accounts}"
-                    SelectedItem="{Binding FromAccount}"/>
-            <Picker Title="入金口座"
+                    SelectedItem="{Binding FromAccount}">
+                <Picker.ItemDisplayBinding>
+                    <Binding Path="Name"
+                             x:DataType="model:Account"/>
+                </Picker.ItemDisplayBinding>
+            </Picker>
+            <Picker Title="入金"
                     ItemsSource="{Binding Accounts}"
-                    SelectedItem="{Binding ToAccount}"/>
+                    SelectedItem="{Binding ToAccount}">
+                <Picker.ItemDisplayBinding>
+                    <Binding Path="Name"
+                             x:DataType="model:Account"/>
+                </Picker.ItemDisplayBinding>
+            </Picker>
         </StackLayout>
+
+        <!-- メモ用フィールド -->
+        <Entry Placeholder="メモ"
+               Text="{Binding Note}"/>
+
+        <!-- 保存・キャンセルボタン -->
+        <HorizontalStackLayout>
+            <Button Text="保存"
+                    Command="{Binding SaveCommand}"/>
+            <Button Text="キャンセル"
+                    Command="{Binding CancelCommand}"/>
+        </HorizontalStackLayout>
+
     </VerticalStackLayout>
 </ContentPage>

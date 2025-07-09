@@ -20,6 +20,6 @@ public class TransactionTypeToBoolConverter : IValueConverter
         if (value is not bool isChecked || !isChecked || parameter is not string param)
             return Binding.DoNothing;
 
-        return Enum.Parse(typeof(TransactionType), param, true);
+        return Enum.Parse<TransactionType>(param, true);
     }
 }

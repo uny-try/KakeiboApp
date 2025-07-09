@@ -32,6 +32,9 @@ public partial class EditTransactionViewModel : ObservableObject
     public bool IsIncome => Type == TransactionType.Income;
     public bool IsTransfer => Type == TransactionType.Transfer;
 
+    // 金額入力用
+    [ObservableProperty] private bool isEditingAmount = false;
+
     public EditTransactionViewModel(
         ITransactionRepository repository,
         ICategoryRepository categoryRepository,
@@ -45,6 +48,8 @@ public partial class EditTransactionViewModel : ObservableObject
 
         Categories = new();
         Accounts = new();
+
+        Type = TransactionType.Expense; // デフォルトは支出
     }
 
     public async Task LoadAsync(Guid? id = null)
@@ -94,10 +99,29 @@ public partial class EditTransactionViewModel : ObservableObject
 
         await _navigation.GoBackAsync();
     }
-    
+
     [RelayCommand]
     public async Task CancelAsync()
     {
         await _navigation.GoBackAsync();
+    }
+
+    partial void OnTypeChanged(TransactionType value)
+    {
+        OnPropertyChanged(nameof(IsExpense));
+        OnPropertyChanged(nameof(IsIncome));
+        OnPropertyChanged(nameof(IsTransfer));
+    }
+
+    [RelayCommand]
+    public void StartEditingAmount()
+    {
+        IsEditingAmount = true;
+    }
+
+    [RelayCommand]
+    public void FinishEditingAmount()
+    {
+        IsEditingAmount = false;
     }
 }
