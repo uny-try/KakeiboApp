@@ -14,7 +14,7 @@ public class FocusOnVisibleBehavior : Behavior<Entry>
             {
                 bindable.Focus();
                 bindable.CursorPosition = 0;
-                bindable.SelectionLength  = bindable.Text?.Length ?? 0;
+                bindable.SelectionLength = bindable.Text?.Length ?? 0;
             }
         };
     }

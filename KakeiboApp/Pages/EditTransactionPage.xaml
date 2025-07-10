@@ -28,34 +28,6 @@
         <DatePicker Date="{Binding Date}"
                     Format="d"/>
 
-        <!-- 金額用フィールド -->
-        <StackLayout>
-
-            <!-- 表示モード -->
-            <Label
-                Text="{Binding Amount, Converter={StaticResource AmountToCurrencyConverter}}"
-                IsVisible="{Binding IsEditingAmount, Converter={StaticResource InverseBoolConverter}}"
-                FontSize="24"
-                TextColor="Black">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding StartEditingAmountCommand}"/>
-                </Label.GestureRecognizers>
-            </Label>
-
-            <!-- 編集モード -->
-            <Entry
-                Text="{Binding Amount, Mode=TwoWay}"
-                Keyboard="Numeric"
-                FontSize="24"
-                IsVisible="{Binding IsEditingAmount}"
-                ReturnCommand="{Binding FinishEditingAmountCommand}">
-                <Entry.Behaviors>
-                    <behaviors:FocusOnVisibleBehavior/>
-                </Entry.Behaviors>
-            </Entry>
-
-        </StackLayout>
-
         <!-- 収入用フィールド -->
         <StackLayout IsVisible="{Binding IsIncome}">
             <Picker Title="入金"
@@ -65,10 +37,15 @@
                     <Binding Path="Name"
                              x:DataType="model:Account"/>
                 </Picker.ItemDisplayBinding>
+                <Picker.Behaviors>
+                    <behaviors:FocusManagerBehavior NextElement="{x:Reference IncomeCategoryPicker}"/>
+                </Picker.Behaviors>
             </Picker>
-            <Picker Title="分類"
-                    ItemsSource="{Binding Categories}"
-                    SelectedItem="{Binding SelectedCategory}">
+            <Picker x:Name="IncomeCategoryPicker"
+                    Title="分類"
+                    ItemsSource="{Binding Categories, Converter={StaticResource CategoryTypeFilterConverter}, ConverterParameter=Income}"
+                    SelectedItem="{Binding SelectedCategory}"
+                    SelectedIndexChanged="OnCategoryPickerChanged">
                 <Picker.ItemDisplayBinding>
                     <Binding Path="Name"
                              x:DataType="model:Category"/>
@@ -85,10 +62,15 @@
                     <Binding Path="Name"
                              x:DataType="model:Account"/>
                 </Picker.ItemDisplayBinding>
+                <Picker.Behaviors>
+                    <behaviors:FocusManagerBehavior NextElement="{x:Reference ExpenseCategoryPicker}"/>
+                </Picker.Behaviors>
             </Picker>
-            <Picker Title="分類"
-                    ItemsSource="{Binding Categories}"
-                    SelectedItem="{Binding SelectedCategory}">
+            <Picker x:Name="ExpenseCategoryPicker"
+                    Title="分類"
+                    ItemsSource="{Binding Categories, Converter={StaticResource CategoryTypeFilterConverter}, ConverterParameter=Expense}"
+                    SelectedItem="{Binding SelectedCategory}"
+                    SelectedIndexChanged="OnCategoryPickerChanged">
                 <Picker.ItemDisplayBinding>
                     <Binding Path="Name"
                              x:DataType="model:Category"/>
@@ -105,15 +87,48 @@
                     <Binding Path="Name"
                              x:DataType="model:Account"/>
                 </Picker.ItemDisplayBinding>
+                <Picker.Behaviors>
+                    <behaviors:FocusManagerBehavior NextElement="{x:Reference ToAccountPicker}"/>
+                </Picker.Behaviors>
             </Picker>
-            <Picker Title="入金"
+            <Picker x:Name="ToAccountPicker"
+                    Title="入金"
                     ItemsSource="{Binding Accounts}"
-                    SelectedItem="{Binding ToAccount}">
+                    SelectedItem="{Binding ToAccount}"
+                    SelectedIndexChanged="OnCategoryPickerChanged">
                 <Picker.ItemDisplayBinding>
                     <Binding Path="Name"
                              x:DataType="model:Account"/>
                 </Picker.ItemDisplayBinding>
             </Picker>
+        </StackLayout>
+
+        <!-- 金額用フィールド -->
+        <StackLayout>
+
+            <!-- 表示モード -->
+            <Label x:Name="AmountEntry"
+                Text="{Binding Amount, Converter={StaticResource AmountToCurrencyConverter}}"
+                   IsVisible="{Binding IsEditingAmount, Converter={StaticResource InverseBoolConverter}}"
+                   FontSize="24"
+                   TextColor="Black">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding StartEditingAmountCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <!-- 編集モード -->
+            <Entry
+                   Text="{Binding Amount, Mode=TwoWay}"
+                   Keyboard="Numeric"
+                   FontSize="24"
+                   IsVisible="{Binding IsEditingAmount}"
+                   ReturnCommand="{Binding FinishEditingAmountCommand}">
+                <Entry.Behaviors>
+                    <behaviors:FocusOnVisibleBehavior/>
+                </Entry.Behaviors>
+            </Entry>
+
         </StackLayout>
 
         <!-- メモ用フィールド -->
