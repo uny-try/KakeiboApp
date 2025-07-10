@@ -13,6 +13,7 @@
             <converters:TransactionTypeToBoolConverter x:Key="TransactionTypeToBoolConverter"/>
             <converters:AmountToCurrencyConverter x:Key="AmountToCurrencyConverter"/>
             <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            <converters:TransactionTypeConverter x:Key="TransactionTypeConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

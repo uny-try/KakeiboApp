@@ -9,21 +9,22 @@
     <VerticalStackLayout>
         <Label Text="家計簿"
                FontSize="24"
-               HorizontalOptions="Center" />
+               HorizontalOptions="Center"/>
 
-        <ListView ItemsSource="{Binding Transactions}">
-            <ListView.ItemTemplate>
+        <CollectionView ItemsSource="{Binding Transactions}">
+            <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Transaction">
-                    <ViewCell>
-                        <StackLayout Orientation="Vertical" Padding="10">
-                            <Label Text="{Binding Date}" />
-                            <Label Text="{Binding Amount, StringFormat='金額: {0:C}'}" />
-                            <Label Text="{Binding Category.Name}" />
-                        </StackLayout>
-                    </ViewCell>
+                    <VerticalStackLayout>
+                        <Label Text="{Binding Date, StringFormat='{0:M月d日(ddd)}'}"/>
+                        <Label Text="{Binding Type, Converter={StaticResource TransactionTypeConverter}}"/>
+                        <Label Text="{Binding Category.Name}"/>
+                        <Label Text="{Binding Amount, StringFormat='{0:C}'}"/>
+                    </VerticalStackLayout>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- 追加ボタン -->
         <Button Text="Add Transaction"
                 Command="{Binding GoToEditCommand}"
                 HorizontalOptions="Center"/>

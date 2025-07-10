@@ -21,7 +21,7 @@ public static class MauiProgram
 			});
 
 		builder.Services.AddSingleton<TransactionViewModel>();
-		builder.Services.AddSingleton<EditTransactionViewModel>();
+		builder.Services.AddTransient<EditTransactionViewModel>();
 		builder.Services.AddSingleton<ITransactionRepository, InMemoryTransactionRepository>();
 		builder.Services.AddSingleton<ICategoryRepository, InMemoryCategoryRepository>();
 		builder.Services.AddSingleton<IAccountRepository, InMemoryAccountRepository>();
