@@ -12,7 +12,6 @@ public class FileTransactionRepository : ITransactionRepository
     public FileTransactionRepository(string folderPath)
     {
         _filePath = Path.Combine(folderPath, "transactions.json");
-        Console.WriteLine($"File path for transactions: {Path.GetFullPath(_filePath)}");
     }
 
     public Task AddAsync(Transaction transaction)
