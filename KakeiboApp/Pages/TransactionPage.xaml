@@ -6,12 +6,21 @@
              xmlns:model="clr-namespace:KakeiboApp.Core.Models;assembly=KakeiboApp.Core"
              Title="TransactionPage"
              x:DataType="viewModel:TransactionViewModel">
-    <VerticalStackLayout>
-        <Label Text="家計簿"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0"
+               Text="家計簿"
                FontSize="24"
                HorizontalOptions="Center"/>
 
-        <CollectionView ItemsSource="{Binding Transactions}">
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Transactions}"
+                        SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Transaction">
                     <VerticalStackLayout>
@@ -25,8 +34,9 @@
         </CollectionView>
 
         <!-- 追加ボタン -->
-        <Button Text="Add Transaction"
+        <Button Grid.Row="2"
+                Text="Add Transaction"
                 Command="{Binding GoToEditCommand}"
                 HorizontalOptions="Center"/>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>
