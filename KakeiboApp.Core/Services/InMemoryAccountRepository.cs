@@ -10,8 +10,8 @@ public class InMemoryAccountRepository : IAccountRepository
         new Account { Name = "現金", Balance = 0 },
         new Account { Name = "楽天Edy", Balance = 0 },
         new Account { Name = "楽天カード", Balance = 0 },
+        new Account { Name = "秋田銀行", Balance = 0 },
         new Account { Name = "ゆうちょ銀行", Balance = 0 },
-        new Account { Name = "楽天銀行", Balance = 0 },
         new Account { Name = "楽天証券", Balance = 0 }
     };
 
