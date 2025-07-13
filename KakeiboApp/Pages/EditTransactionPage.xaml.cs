@@ -2,10 +2,11 @@ using KakeiboApp.ViewModels;
 
 namespace KakeiboApp.Pages;
 
-[QueryProperty(nameof(TransactionId), "TransactionId")]
+[QueryProperty(nameof(TransactionIdString), "TransactionId")]
 public partial class EditTransactionPage : ContentPage
 {
-    public Guid? TransactionId { get; set; }
+    public string? TransactionIdString { get; set; }
+    public Guid? TransactionId;
 
     private readonly EditTransactionViewModel _viewModel;
     public EditTransactionPage(EditTransactionViewModel viewModel)
@@ -19,9 +20,19 @@ public partial class EditTransactionPage : ContentPage
     {
         base.OnNavigatedTo(args);
         await _viewModel.LoadSelectionListsAsync();
-        if (TransactionId is not null)
+        if (TransactionIdString is not null)
         {
-            await _viewModel.LoadAsync(TransactionId);
+            if (Guid.TryParse(TransactionIdString, out var id))
+            {
+                TransactionId = id;
+                await _viewModel.LoadAsync(TransactionId);
+            }
+            else
+            {
+                // 文字列がGuidに変換できない場合のエラーハンドリング
+                await DisplayAlert("Error", "Invalid Transaction ID format.", "OK");
+                return;
+            }
         }
     }
 

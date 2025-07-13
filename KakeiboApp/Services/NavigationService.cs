@@ -7,9 +7,9 @@ namespace KakeiboApp.Services;
 
 public class NavigationService : INavigationService
 {
-    public async Task NavigateToAsync(string route, IDictionary<string, object>? parameters = null)
+    public async Task NavigateToAsync(string route)
     {
-        await Shell.Current.GoToAsync(route, parameters ?? new Dictionary<string, object>());
+        await Shell.Current.GoToAsync(route);
     }
 
     public async Task GoBackAsync()

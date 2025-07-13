@@ -33,11 +33,14 @@ public partial class TransactionViewModel : ObservableObject
     [RelayCommand]
     public async Task GoToEditAsync(Guid? transactionId = null)
     {
-        var parameters = new Dictionary<string, object>();
+//        if (transactionId is null)
+//            transactionId = Transactions.FirstOrDefault()?.Id;
+
+        var route = "EditTransactionPage";
         if (transactionId.HasValue)
         {
-            parameters.Add("TransactionId", transactionId.Value);
+            route += $"?TransactionId={transactionId.Value}";
         }
-        await _navigationService.NavigateToAsync("EditTransactionPage", parameters);
+        await _navigationService.NavigateToAsync(route);
     }
 }

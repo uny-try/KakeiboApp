@@ -19,15 +19,23 @@
                HorizontalOptions="Center"/>
 
         <CollectionView Grid.Row="1"
-                        ItemsSource="{Binding Transactions}"
-                        SelectionMode="Single">
+                        ItemsSource="{Binding Transactions}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Transaction">
                     <VerticalStackLayout>
+                        <Label Text="{Binding Id}"/>
                         <Label Text="{Binding Date, StringFormat='{0:M月d日(ddd)}'}"/>
                         <Label Text="{Binding Type, Converter={StaticResource TransactionTypeConverter}}"/>
                         <Label Text="{Binding Category.Name}"/>
                         <Label Text="{Binding Amount, StringFormat='{0:C}'}"/>
+                        <Button Text="Edit"
+                                CommandParameter="{Binding Id}">
+                            <Button.Command>
+                                <Binding x:DataType="viewModel:TransactionViewModel"
+                                         Path="GoToEditCommand"
+                                         Source="{RelativeSource AncestorType={x:Type viewModel:TransactionViewModel}}"/>
+                            </Button.Command>
+                        </Button>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
