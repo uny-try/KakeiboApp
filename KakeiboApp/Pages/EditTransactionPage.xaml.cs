@@ -26,6 +26,9 @@ public partial class EditTransactionPage : ContentPage
             {
                 TransactionId = id;
                 await _viewModel.LoadAsync(TransactionId);
+                _viewModel.FromAccount = _viewModel.Accounts.FirstOrDefault(a => a.Id == _viewModel.FromAccount?.Id);
+                _viewModel.ToAccount = _viewModel.Accounts.FirstOrDefault(a => a.Id == _viewModel.ToAccount?.Id);
+                _viewModel.SelectedCategory = _viewModel.Categories.FirstOrDefault(c => c.Id == _viewModel.SelectedCategory?.Id);
             }
             else
             {
