@@ -5,7 +5,6 @@
              xmlns:model="clr-namespace:KakeiboApp.Core.Models;assembly=KakeiboApp.Core"
              xmlns:viewModel="clr-namespace:KakeiboApp.ViewModels;assembly=KakeiboApp.ViewModel"
              xmlns:behaviors="clr-namespace:KakeiboApp.Behaviors;assembly=KakeiboApp"
-             Title="EditTransactionPage"
              x:DataType="viewModel:EditTransactionViewModel">
     <VerticalStackLayout>
         <!-- ラジオボタン群 -->
