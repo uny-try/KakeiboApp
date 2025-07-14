@@ -16,11 +16,15 @@ public partial class TransactionViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<Transaction> transactions;
 
+    [ObservableProperty]
+    private Transaction? selectedTransaction;
+
     public TransactionViewModel(ITransactionRepository repository, INavigationService navigationService)
     {
         _repository = repository;
         _navigationService = navigationService;
         transactions = new();
+        selectedTransaction = null;
     }
 
     [RelayCommand]
@@ -33,14 +37,12 @@ public partial class TransactionViewModel : ObservableObject
     [RelayCommand]
     public async Task GoToEditAsync(Guid? transactionId = null)
     {
-//        if (transactionId is null)
-//            transactionId = Transactions.FirstOrDefault()?.Id;
-
         var route = "EditTransactionPage";
         if (transactionId.HasValue)
         {
             route += $"?TransactionId={transactionId.Value}";
         }
         await _navigationService.NavigateToAsync(route);
+        SelectedTransaction = null; // Reset after navigation
     }
 }

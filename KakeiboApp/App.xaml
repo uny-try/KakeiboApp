@@ -15,6 +15,7 @@
             <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
             <converters:TransactionTypeConverter x:Key="TransactionTypeConverter"/>
             <converters:CategoryTypeFilterConverter x:Key="CategoryTypeFilterConverter"/>
+            <converters:NullToBoolConverter x:Key="NullToBoolConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

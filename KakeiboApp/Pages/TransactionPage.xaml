@@ -19,32 +19,36 @@
                HorizontalOptions="Center"/>
 
         <CollectionView Grid.Row="1"
-                        ItemsSource="{Binding Transactions}">
+                        ItemsSource="{Binding Transactions}"
+                        SelectionMode="Single"
+                        SelectedItem="{Binding SelectedTransaction, Mode=TwoWay}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Transaction">
                     <VerticalStackLayout>
-                        <Label Text="{Binding Id}"/>
                         <Label Text="{Binding Date, StringFormat='{0:M月d日(ddd)}'}"/>
                         <Label Text="{Binding Type, Converter={StaticResource TransactionTypeConverter}}"/>
                         <Label Text="{Binding Category.Name}"/>
                         <Label Text="{Binding Amount, StringFormat='{0:C}'}"/>
-                        <Button Text="Edit"
-                                CommandParameter="{Binding Id}">
-                            <Button.Command>
-                                <Binding x:DataType="viewModel:TransactionViewModel"
-                                         Path="GoToEditCommand"
-                                         Source="{RelativeSource AncestorType={x:Type viewModel:TransactionViewModel}}"/>
-                            </Button.Command>
-                        </Button>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
         <!-- 追加ボタン -->
-        <Button Grid.Row="2"
-                Text="Add Transaction"
-                Command="{Binding GoToEditCommand}"
-                HorizontalOptions="Center"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    IsEnabled="{Binding SelectedTransaction, Converter={StaticResource NullToBoolConverter}}"
+                    Text="Edit Selected Transaction"
+                    Command="{Binding GoToEditCommand}"
+                    CommandParameter="{Binding SelectedTransaction.Id}"/>
+            <Button Grid.Column="1"
+                    Text="Add Transaction"
+                    Command="{Binding GoToEditCommand}"
+                    HorizontalOptions="Center"/>
+        </Grid>
     </Grid>
 </ContentPage>
