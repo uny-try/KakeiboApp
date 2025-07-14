@@ -62,13 +62,13 @@ public partial class EditTransactionViewModel : ObservableObject
             return;
 
         TransactionId = tx.Id;
-        Amount = tx.Amount;
-        Note = tx.Note;
-        Date = tx.Date;
         Type = tx.Type;
-        SelectedCategory = tx.Category;
+        Date = tx.Date;
         FromAccount = tx.FromAccount;
         ToAccount = tx.ToAccount;
+        SelectedCategory = tx.Category;
+        Amount = tx.Amount;
+        Note = tx.Note;
     }
 
     public async Task LoadSelectionListsAsync()
@@ -83,13 +83,13 @@ public partial class EditTransactionViewModel : ObservableObject
         var model = new Transaction
         {
             Id = TransactionId ?? Guid.NewGuid(),
-            Amount = Amount,
-            Note = Note,
-            Date = Date,
             Type = Type,
-            Category = SelectedCategory,
+            Date = Date,
             FromAccount = FromAccount,
-            ToAccount = ToAccount
+            ToAccount = ToAccount,
+            Category = SelectedCategory,
+            Amount = Amount,
+            Note = Note
         };
 
         if (TransactionId is null)
