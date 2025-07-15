@@ -117,12 +117,18 @@
                Text="{Binding Note}"/>
 
         <!-- 保存・キャンセルボタン -->
-        <HorizontalStackLayout>
-            <Button Text="保存"
-                    Command="{Binding SaveCommand}"/>
-            <Button Text="キャンセル"
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Text="キャンセル"
                     Command="{Binding CancelCommand}"/>
-        </HorizontalStackLayout>
+            <Button Grid.Column="1"
+                    Text="保存"
+                    Command="{Binding SaveCommand}"/>
+        </Grid>
 
     </VerticalStackLayout>
 </ContentPage>

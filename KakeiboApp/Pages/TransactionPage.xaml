@@ -37,23 +37,22 @@
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0"
-                    Text="Delete Selected Transaction"
+                    Text="削除"
                     IsEnabled="{Binding SelectedTransaction, Converter={StaticResource NullToBoolConverter}}"
                     Command="{Binding DeleteTransactionCommand}"
                     CommandParameter="{Binding SelectedTransaction.Id}"/>
             <Button Grid.Column="1"
                     IsEnabled="{Binding SelectedTransaction, Converter={StaticResource NullToBoolConverter}}"
-                    Text="Edit Selected Transaction"
+                    Text="変更"
                     Command="{Binding GoToEditCommand}"
                     CommandParameter="{Binding SelectedTransaction.Id}"/>
             <Button Grid.Column="2"
-                    Text="Add Transaction"
-                    Command="{Binding GoToEditCommand}"
-                    HorizontalOptions="Center"/>
+                    Text="追加"
+                    Command="{Binding GoToEditCommand}"/>
         </Grid>
     </Grid>
 </ContentPage>
