@@ -45,4 +45,15 @@ public partial class TransactionViewModel : ObservableObject
         await _navigationService.NavigateToAsync(route);
         SelectedTransaction = null; // Reset after navigation
     }
+
+    [RelayCommand]
+    public async Task DeleteTransactionAsync(Guid transactionId)
+    {
+        if (transactionId == Guid.Empty)
+            return;
+
+        await _repository.DeleteAsync(transactionId);
+        await LoadTransactionsAsync(); // Reload after deletion
+        SelectedTransaction = null; // Reset selected transaction
+    }
 }

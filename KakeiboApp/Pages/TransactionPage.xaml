@@ -38,13 +38,19 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0"
+                    Text="Delete Selected Transaction"
+                    IsEnabled="{Binding SelectedTransaction, Converter={StaticResource NullToBoolConverter}}"
+                    Command="{Binding DeleteTransactionCommand}"
+                    CommandParameter="{Binding SelectedTransaction.Id}"/>
+            <Button Grid.Column="1"
                     IsEnabled="{Binding SelectedTransaction, Converter={StaticResource NullToBoolConverter}}"
                     Text="Edit Selected Transaction"
                     Command="{Binding GoToEditCommand}"
                     CommandParameter="{Binding SelectedTransaction.Id}"/>
-            <Button Grid.Column="1"
+            <Button Grid.Column="2"
                     Text="Add Transaction"
                     Command="{Binding GoToEditCommand}"
                     HorizontalOptions="Center"/>
