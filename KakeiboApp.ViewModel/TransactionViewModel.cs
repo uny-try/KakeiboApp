@@ -14,6 +14,9 @@ public partial class TransactionViewModel : ObservableObject
     private readonly INavigationService _navigationService;
 
     [ObservableProperty]
+    private DateTime _currentMonth = DateTime.Now;
+
+    [ObservableProperty]
     private ObservableCollection<Transaction> transactions;
 
     [ObservableProperty]
@@ -55,5 +58,19 @@ public partial class TransactionViewModel : ObservableObject
         await _repository.DeleteAsync(transactionId);
         await LoadTransactionsAsync(); // Reload after deletion
         SelectedTransaction = null; // Reset selected transaction
+    }
+
+    [RelayCommand]
+    public async Task NextMonthAsync()
+    {
+        CurrentMonth = CurrentMonth.AddMonths(1);
+        await LoadTransactionsAsync();
+    }
+
+    [RelayCommand]
+    public async Task PreviousMonthAsync()
+    {
+        CurrentMonth = CurrentMonth.AddMonths(-1);
+        await LoadTransactionsAsync();
     }
 }
