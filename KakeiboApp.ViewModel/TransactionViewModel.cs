@@ -20,6 +20,9 @@ public partial class TransactionViewModel : ObservableObject
     private ObservableCollection<Transaction> transactions;
 
     [ObservableProperty]
+    private ObservableCollection<MonthlyTransactionGroup> monthlyTransactionGroups = new();
+
+    [ObservableProperty]
     private Transaction? selectedTransaction;
 
     public TransactionViewModel(ITransactionRepository repository, INavigationService navigationService)
@@ -33,8 +36,9 @@ public partial class TransactionViewModel : ObservableObject
     [RelayCommand]
     private async Task LoadTransactionsAsync()
     {
-        var data = await _repository.GetAllAsync();
+        var data = (await _repository.GetAllAsync()).OrderBy(t => t.Date);
         Transactions = new ObservableCollection<Transaction>(data);
+        GroupTransactionsByMonth(Transactions);
     }
 
     [RelayCommand]
@@ -72,5 +76,21 @@ public partial class TransactionViewModel : ObservableObject
     {
         CurrentMonth = CurrentMonth.AddMonths(-1);
         await LoadTransactionsAsync();
+    }
+
+    [RelayCommand]
+    private void GroupTransactionsByMonth(IEnumerable<Transaction> transactions)
+    {
+        MonthlyTransactionGroups.Clear();
+        var grouped = transactions
+            .GroupBy(t => new DateTime(t.Date.Year, t.Date.Month, 1))
+            .OrderBy(g => g.Key);
+
+        foreach (var group in grouped)
+        {
+            var monthLabel = group.Key.ToString("yyyy年MM月");
+            var monthlyGroup = new MonthlyTransactionGroup(monthLabel, group);
+            MonthlyTransactionGroups.Add(monthlyGroup);
+        }
     }
 }
