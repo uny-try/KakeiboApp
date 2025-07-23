@@ -11,15 +11,21 @@
         <HorizontalStackLayout>
             <RadioButton Content="収入"
                          GroupName="TypeGroup"
-                         IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Income}"
+                         IsChecked="{Binding Type,
+                                     Converter={StaticResource TransactionTypeToBoolConverter},
+                                     ConverterParameter=Income}"
                          Margin="10, 0"/>
             <RadioButton Content="支出"
                          GroupName="TypeGroup"
-                         IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Expense}"
+                         IsChecked="{Binding Type,
+                                     Converter={StaticResource TransactionTypeToBoolConverter},
+                                     ConverterParameter=Expense}"
                          Margin="10, 0"/>
             <RadioButton Content="振替"
                          GroupName="TypeGroup"
-                         IsChecked="{Binding Type, Converter={StaticResource TransactionTypeToBoolConverter}, ConverterParameter=Transfer}"
+                         IsChecked="{Binding Type,
+                                     Converter={StaticResource TransactionTypeToBoolConverter},
+                                     ConverterParameter=Transfer}"
                          Margin="10, 0"/>
         </HorizontalStackLayout>
 
@@ -38,7 +44,9 @@
                 </Picker.ItemDisplayBinding>
             </Picker>
             <Picker Title="分類"
-                    ItemsSource="{Binding Categories, Converter={StaticResource CategoryTypeFilterConverter}, ConverterParameter=Income}"
+                    ItemsSource="{Binding Categories,
+                                  Converter={StaticResource CategoryTypeFilterConverter},
+                                  ConverterParameter=Income}"
                     SelectedItem="{Binding SelectedCategory}">
                 <Picker.ItemDisplayBinding>
                     <Binding Path="Name"
@@ -58,7 +66,9 @@
                 </Picker.ItemDisplayBinding>
             </Picker>
             <Picker Title="分類"
-                    ItemsSource="{Binding Categories, Converter={StaticResource CategoryTypeFilterConverter}, ConverterParameter=Expense}"
+                    ItemsSource="{Binding Categories,
+                                  Converter={StaticResource CategoryTypeFilterConverter},
+                                  ConverterParameter=Expense}"
                     SelectedItem="{Binding SelectedCategory}">
                 <Picker.ItemDisplayBinding>
                     <Binding Path="Name"
