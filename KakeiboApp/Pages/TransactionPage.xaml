@@ -9,10 +9,25 @@
         <ResourceDictionary>
             <DataTemplate x:Key="TransactionGroupHeaderTemplate"
                           x:DataType="model:MonthlyTransactionGroup">
-                <Label Text="{Binding MonthLabel}"
-                       FontAttributes="Bold"
-                       BackgroundColor="LightGray"
-                       Padding="8"/>
+                <Grid Padding="10"
+                      BackgroundColor="LightGray">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="{Binding MonthLabel}"
+                           FontAttributes="Bold"
+                           Padding="8"/>
+                    <Label Grid.Column="1"
+                        Text="{Binding TotalIncome, StringFormat='収入: {0:C}'}"
+                           FontAttributes="Bold"
+                           Padding="8"/>
+                    <Label Grid.Column="2"
+                        Text="{Binding TotalExpense, StringFormat='支出: {0:C}'}"
+                           FontAttributes="Bold"
+                            Padding="8"/>
+                </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
