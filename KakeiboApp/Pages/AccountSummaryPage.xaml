@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KakeiboApp.Pages.AccountSummaryPage"
+             xmlns:model="clr-namespace:KakeiboApp.Core.Models;assembly=KakeiboApp.Core"
+             xmlns:viewmodel="clr-namespace:KakeiboApp.ViewModels;assembly=KakeiboApp.ViewModel"
+             x:DataType="viewmodel:AccountSummaryViewModel">
+    <Grid>
+        <CollectionView ItemsSource="{Binding Accounts}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Account">
+                    <Grid Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               Text="{Binding Name}"
+                               FontAttributes="Bold"
+                               FontSize="Large"/>
+                        <Label Grid.Column="1"
+                               Text="{Binding Balance, StringFormat='残高: {0:C}'}"
+                               FontSize="Medium"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

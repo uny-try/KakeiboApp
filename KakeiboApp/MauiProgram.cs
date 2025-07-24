@@ -22,6 +22,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<TransactionViewModel>();
         builder.Services.AddTransient<EditTransactionViewModel>();
+        builder.Services.AddSingleton<AccountSummaryViewModel>();
         builder.Services.AddSingleton<ITransactionRepository>(
             _ => new FileTransactionRepository(FileSystem.AppDataDirectory));
         builder.Services.AddSingleton<ICategoryRepository>(

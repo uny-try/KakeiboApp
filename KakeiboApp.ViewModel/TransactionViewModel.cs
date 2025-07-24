@@ -54,6 +54,12 @@ public partial class TransactionViewModel : ObservableObject
     }
 
     [RelayCommand]
+    public async Task GoToAccountSummaryAsync()
+    {
+        await _navigationService.NavigateToAsync("AccountSummaryPage");
+    }
+
+    [RelayCommand]
     public async Task DeleteTransactionAsync(Guid transactionId)
     {
         if (transactionId == Guid.Empty)

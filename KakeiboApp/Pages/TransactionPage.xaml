@@ -38,6 +38,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <Button Grid.Row="0"
+                Text="資産"
+                Command="{Binding GoToAccountSummaryCommand}"
+                HorizontalOptions="End"
+                VerticalOptions="Start"/>
+
         <CollectionView Grid.Row="1"
                         ItemsSource="{Binding MonthlyTransactionGroups}"
                         SelectionMode="Single"
